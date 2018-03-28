@@ -1,18 +1,35 @@
 <!doctype html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Properties In Times Square</title>
         <style>
+            .fa{
+                padding: 20px;
+                font-size: 30px;
+                width: 50px;
+                text-align: center;
+                text-decoration: none;
+                margin: 5px 2px;
+            }
+            .fa-google{
+                background: #dd4b39;
+                color: white;
+            }
+            .fa-yahoo{
+                background: #430297;
+                color: white;
+            }
             .card{
                 transition: 2s;
-                color: cyan;
+                color: blueviolet;
                 width:300px;
                 padding:10px;
                 margin:10px;
                 display:inline-block;
                 border-radius:10px;
-                background-color: #818181;
-                opacity: 0.75;
+                background: rgba(255,255,255,0.9);
+                opacity: 0.8;
                 box-shadow:red 5px 5px 5px;
             }
             .card:hover{
@@ -27,7 +44,8 @@
             }
             input{
                 transition: 1s;
-                width: 250px;
+                width: 217px;
+                height: 25px;
                 opacity: 0.75;
             }
             input:hover{
@@ -40,6 +58,30 @@
             }
             p,h1{
                 font-family:"Arial";
+            }
+            P{
+                font-weight:bold;
+            }
+            label{
+                font-size: 18pt;
+                background:rgba(255,255,255,0.8);
+                color: red;
+            }
+            .fixed{
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 2;
+            }
+            button{
+                border-radius: 4px;
+                border: none;
+                color: black;
+                background-color: white;
+                text-align: center;
+            }
+            #output{
+                z-index: 1;
             }
             .button{
                 border-radius: 4px;
@@ -100,6 +142,9 @@
                 font-size: 36px;
                 margin-left: 50px;
             }
+            #info{
+                background:rgba(255,255,255,0.7);
+            }
             #main{
                 transition: margin-left 1.5s;
                 padding: 16px;
@@ -120,7 +165,8 @@
                 <p><font size="5"> Phone Number: {{phone}} </font></p>
                 <p><font size="5"> Building Expenses: {{building_operating_expenses}} </font></p>
                 <p><font size="5"> Building Tax: {{building_tax_expenses}} </font></p>
-                <button onclick="myMap({{latitude}},{{longitude}})" , class="button"><span>Search</span></button>
+                <button onclick="myMap({{latitude}},{{longitude}})" , class="button"><span>Search</span></button><br>
+                <button onclick="myFunction()">Hide/Show Google Maps</button>
             </div>
         </script>
         <script>
@@ -141,6 +187,14 @@
                 var map = new google.maps.Map(mapCanvas, mapOptions);
                 var marker = new google.maps.Marker({position:myCenter});
                 marker.setMap(map);
+            }
+            function myFunction(){
+                var x = document.getElementById("myDIV");
+                if(x.style.display == "none"){
+                    x.style.display = "block";
+                }else{
+                    x.style.display = "none";
+                }
             }
             var data;
             function loadJSON(){
@@ -168,16 +222,32 @@
         <div id="mySidenav" class ="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="Description.html">Home</a>
-            <a href="Food%20and%20Beverage.html">Food And Beverage</a>
+            <a href="Food%20and%20Beverage.html">Food And<br> Beverage</a>
             <a href="Hotels.html">Hotels</a>
             <a href="Venues.html">Venues</a>
+            <div id="info">
+                <div align="center">
+                    <p>For More<br>
+                       Information
+                    </p>
+                    <a href="https://www.google.com/search?q=properties+in+times+square&oq=properties+in+times+square&aqs=chrome..69i57j69i60j0l2.13968j0j7&sourceid=chrome&ie=UTF-8" class="fa fa-google"></a>
+                    <a href="https://search.yahoo.com/search?p=properties+in+times+square&fr=yfp-t&fp=1&toggle=1&cop=mss&ei=UTF-8" class="fa fa-yahoo"></a>
+                </div>
+            </div>
         </div>
         <div id="main">
             <span style="font-size:30px;cursor:pointer;color:rgb(255, 0, 0)" onclick="openNav()">&#9776; Open</span>
         </div>
-        <input type="text" id="location_zip" placeholder="Enter A Zip Code Or The Year It Was Built">
-        <button onclick="displayProperties()" , class="button"><span>Display</span></button>
-        <div id="map" style="width:400px;height:400px"></div>
+        <div align="center">
+            <label>Enter A Zip Code Or A Year</label><br>
+            <input id="location_zip" type="text"></p>
+            <button onclick="displayProperties()" , class="button"><span>Display</span></button>
+        </div>
+        <div id="myDIV">
+            <div class="fixed">
+                <div id="map" style="width:360px;height:360px"></div>
+            </div>
+        </div>
         <div id="output"></div>
     </body>
 </html>
