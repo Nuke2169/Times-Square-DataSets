@@ -1,24 +1,42 @@
 <!doctype html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Hotels In Times Square</title>
         <style>
+            .fa{
+                padding: 20px;
+                font-size: 30px;
+                width: 50px;
+                text-align: center;
+                text-decoration: none;
+                margin: 5px 2px;
+            }
+            .fa-google{
+                background: #dd4b39;
+                color: white;
+            }
+            .fa-yahoo{
+                background: #430297;
+                color: white;
+            }
             .card{
                 transition: 2s;
-                color: cyan;
+                color: blue;
                 width:300px;
                 padding:10px;
                 margin:10px;
                 display:inline-block;
                 border-radius:10px;
-                background-color: #818181;
-                opacity: 0.75;
+                background:rgba(255,255,255,0.7);
+                /*background-color: #818181;*/
+                opacity: 0.8;
                 box-shadow:red 5px 5px 5px;
             }
             .card:hover{
                 transition: 2s;
-                color: blue;
-                box-shadow: hotpink 5px 5px 5px;
+                color: #191970;
+                box-shadow: #00FF7F 5px 5px 5px;
                 opacity: 1;
             }
             body{
@@ -28,6 +46,7 @@
             input{
                 transition: 1s;
                 width: 217px;
+                height: 25px;
                 opacity: 0.75;
             }
             input:hover{
@@ -41,11 +60,35 @@
             p,h1{
                 font-family:"Arial";
             }
-            .button{
+            p{
+                font-weight: bold;
+            }
+            label{
+                font-size: 18pt;
+                background:rgba(255,255,255,0.8);
+                color: royalblue;
+            }
+            .fixed{
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 2;
+            }
+            button{
                 border-radius: 4px;
-                /*background-color: #f4511e;*/
                 border: none;
                 color: black;
+                background-color: white;
+                text-align: center;
+            }
+            #output{
+                z-index: 1;
+            }
+            .button{
+                border-radius: 4px;
+                border: none;
+                color: black;
+                background-color: white;
                 text-align: center;
                 transition: all 1s;
             }
@@ -100,6 +143,9 @@
                 font-size: 36px;
                 margin-left: 50px;
             }
+            #info{
+                background:rgba(255,255,255,0.7);
+            }
             #main{
                 transition: margin-left 1.5s;
                 padding: 16px;
@@ -118,7 +164,8 @@
                 <p><font size="5"> {{address}} </font></p>
                 <p><font size="5"> {{nta}} </font></p>
                 <p><font size="5"> Phone Number: {{phone}} </font></p>
-                <button onclick="myMap({{latitude}},{{longitude}})" , class="button"><span>Search</span></button>
+                <button onclick="myMap({{latitude}},{{longitude}})" , class="button"><span>Search</span></button><br>
+                <button onclick="myFunction()">Hide/Show Google Maps</button>
             </div>
         </script>
         <script>
@@ -139,6 +186,14 @@
                 var map = new google.maps.Map(mapCanvas, mapOptions);
                 var marker = new google.maps.Marker({position:myCenter});
                 marker.setMap(map);
+            }
+            function myFunction(){
+                var x = document.getElementById("myDIV");
+                if(x.style.display == "none"){
+                    x.style.display = "block";
+                }else{
+                    x.style.display = "none";
+                }
             }
             var data;
             function loadJSON(){
@@ -166,16 +221,32 @@
         <div id="mySidenav" class ="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="Description.html">Home</a>
-            <a href="Food%20and%20Beverage.html">Food And Beverage</a>
+            <a href="Food%20and%20Beverage.html">Food And<br> Beverage</a>
             <a href="Properties.html">Properties</a>
             <a href="Venues.html">Venues</a>
+            <div id="info">
+                <div align="center">
+                    <p>For More<br>
+                       Information
+                    </p>
+                    <a href="https://www.google.com/search?q=hotels+in+times+square&oq=hotels+in+times+&aqs=chrome.0.0j69i60j69i57j0l3.5549j0j7&sourceid=chrome&ie=UTF-8" class="fa fa-google"></a>
+                    <a href="https://search.yahoo.com/search?p=hotels+in+times+square&fr=yfp-t-s&fp=1&toggle=1&cop=mss&ei=UTF-8" class="fa fa-yahoo"></a>
+                </div>
+            </div>
         </div>
         <div id="main">
             <span style="font-size:30px;cursor:pointer;color:cyan" onclick="openNav()">&#9776; Open</span>
         </div>
-        <input type="text" id="location" placeholder="Enter A Zip Code Or Name Of Place">
-        <button onclick="displayHotels()" , class="button"><span>Display</span></button>
-        <div id="map" style="width:400px;height:400px"></div>
+        <div align="center">
+            <label>Enter A Zip Code Or Name Of A Place</label><br>
+            <input id="location" type="text"></p>
+            <button onclick="displayHotels()" , class="button"><span>Display</span></button>
+        </div>
+        <div id="myDIV">
+            <div class="fixed">
+                <div id="map" style="width:360px;height:360px"></div>
+            </div>
+        </div>
         <div id="output"></div>
     </body>
 </html>
